@@ -3,6 +3,7 @@
     <wb-module deploy-name="jerseyguice">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src-example"/>
         <property name="context-root" value="jerseyguice"/>
         <property name="java-output-path"/>
     </wb-module>
