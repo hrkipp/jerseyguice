@@ -39,12 +39,29 @@
     		</manifest>
     	</jar>
     </target>
+	
+	<!-- ================================= 
+	          target: war              
+	         ================================= -->
+    <target name="war" depends="build" description="create test war file">
+    	
+    	<javac classpathref="classpath" srcdir="${basedir}/src-example"
+    				destdir="${build.dir}/testApp/WEB-INF/classes" debug="off" source="1.5"/>
+    	
+        <war destfile="${build.dir}/hello.war" webxml="${basedir}/WebContent/WEB-INF/web.xml">
+        	<fileset dir="${basedir}/WebContent"/>
+        	<classes dir="${build.dir}/testApp/WEB-INF/classes"/>
+        	<lib file="${build.dir}/${jar.name}-${jar.version}.jar"/>
+        </war>
+    </target>
+
 
     <!-- - - - - - - - - - - - - - - - - - 
           target: init                      
          - - - - - - - - - - - - - - - - - -->
     <target name="init" depends="clean">
     	<mkdir dir="${classes.dir}"/>
+    	<mkdir dir="${build.dir}/testApp/WEB-INF/classes"/>
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
