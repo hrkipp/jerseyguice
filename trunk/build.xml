@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Nov 20, 2008 2:47:24 PM                                                        
+
+     JerseyGuice    
+     Jersey Guice integration
+                   
+     ssaminathan                                                                
+     ====================================================================== -->
+<project name="JerseyGuice" default="build" basedir=".">
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="lib.dir" value="${basedir}/WebContent/WEB-INF/lib"/>
+	<property name="build.dir" value="${basedir}/tmp2"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="jar.name" value="jerseyguice"/>
+	<property name="jar.version" value="0.1"/>
+	
+    <description>
+            Jersey Guice integration
+    </description>
+
+	<path id ="classpath">
+		<fileset dir="${lib.dir}" includes="*.jar"/>
+		<pathelement location="${classes.dir}"/>
+	</path>
+	
+    <!-- ================================= 
+          target: build              
+         ================================= -->
+    <target name="build" depends="init" description="Jersey Guice integration">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.5" classpathref="classpath"></javac>
+    	<jar destfile="${build.dir}/${jar.name}-${jar.version}.jar">
+    		<fileset dir="${classes.dir}"/>
+    		<manifest>
+    			<attribute name="Built-By" value="Sundaramurthi Saminathan"/>
+			    <attribute name="Implementation-Vendor" value="Sundar"/>
+    			<attribute name="Implementation-Title" value="JerseyGuice"/>
+    			<attribute name="Implementation-Version" value="0.1"/>
+    		</manifest>
+    	</jar>
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: init                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="init" depends="clean">
+    	<mkdir dir="${classes.dir}"/>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clean                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="clean">
+    	<delete dir="${build.dir}"/>
+    </target>
+
+</project>
