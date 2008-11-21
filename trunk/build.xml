@@ -12,8 +12,8 @@
 	<property name="lib.dir" value="${basedir}/WebContent/WEB-INF/lib"/>
 	<property name="build.dir" value="${basedir}/tmp2"/>
 	<property name="classes.dir" value="${build.dir}/classes"/>
-	<property name="jar.name" value="jerseyguice"/>
-	<property name="jar.version" value="0.1"/>
+	<property name="jar.name" value="google-jerseyguice"/>
+	<property name="jar.version" value="0.2"/>
 	
     <description>
             Jersey Guice integration
@@ -29,6 +29,7 @@
          ================================= -->
     <target name="build" depends="init" description="Jersey Guice integration">
         <javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.5" classpathref="classpath"></javac>
+    	<copydir dest="${classes.dir}" src="${src.dir}" excludes="*.java"></copydir>
     	<jar destfile="${build.dir}/${jar.name}-${jar.version}.jar">
     		<fileset dir="${classes.dir}"/>
     		<manifest>

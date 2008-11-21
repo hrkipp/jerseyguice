@@ -19,7 +19,7 @@ public class ExampleService {
 	@GET
 	@Path("hello")
 	@Produces("text/html")
-	public String ideInit(@PathParam(value="name") String name,@QueryParam(value="place") String place){
-		return "hello "+service.getName();
+	public UserVO ideInit(@PathParam(value="name") String name,@QueryParam(value="place") String place){
+		return new UserVO();//"hello "+service.getName();
 	}
 }
