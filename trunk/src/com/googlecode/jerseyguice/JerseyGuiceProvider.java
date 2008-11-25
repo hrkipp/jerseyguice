@@ -1,5 +1,7 @@
 package com.googlecode.jerseyguice;
 
+import java.util.HashMap;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -19,6 +21,8 @@ public class JerseyGuiceProvider<T> implements ResourceProvider {
 	private Injector 			guiceInjector;
 	private Class<?> 			resourceClass;
 	
+	private static HashMap<Class<? extends Module>,Injector> injectorMap = new HashMap<Class<? extends Module>,Injector> ();
+	
 	public Object getInstance(ComponentProvider componentProvider, HttpContext context) {
 		try {
 			return guiceInjector.getInstance(resourceClass);
@@ -32,9 +36,11 @@ public class JerseyGuiceProvider<T> implements ResourceProvider {
 		try {
 			Class<? extends Module> moduleClass = abstractResource
 			.getResourceClass().getAnnotation(JerseyGuiceManaged.class).module();
-			guiceInjector = Guice.createInjector(moduleClass.newInstance());
-			
-			this.resourceClass = abstractResource.getResourceClass();
+			if(!injectorMap.containsKey(moduleClass)){
+				injectorMap.put(moduleClass, Guice.createInjector(moduleClass.newInstance()));
+			}
+			guiceInjector		= injectorMap.get(moduleClass);
+			this.resourceClass 	= abstractResource.getResourceClass();
 		} catch (InstantiationException e) {
 			throw new Error("Failed to init resource "+e);
 		} catch (IllegalAccessException e) {
